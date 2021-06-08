@@ -10,7 +10,7 @@ namespace TheGrid
     class Triangle
     {
         public Line[] lines { get; private set; }
-        Pen p = new Pen(Color.Black, 1);
+        Pen p = new Pen(Color.Black, 2);
         public bool IsExternal { get; private set; }
 
         public Triangle(Line l1, Line l2, Line l3)

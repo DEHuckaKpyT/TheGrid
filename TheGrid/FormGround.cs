@@ -19,6 +19,8 @@ namespace TheGrid
         Graphics g;
         Bitmap bitmap;
         bool activeDrawingPoints = false;
+        Color internalColor = Color.Blue;
+        Color externalColor = Color.Red;
         public FormGround()
         {
             InitializeComponent();
@@ -98,7 +100,9 @@ namespace TheGrid
             {
                 triange.DrawTriangle(g, Color.Black);
                 if (triange.IsExternal)
-                    triange.FillTriangle(g, Color.Red);
+                    triange.FillTriangle(g, externalColor);
+                else
+                    triange.FillTriangle(g, internalColor);
             }
             pictureBox1.Image = bitmap;
         }
@@ -111,9 +115,9 @@ namespace TheGrid
             {
                 Triangle triangle = triangles[int.Parse(textBoxNumber.Text)];
                 if (triangle.IsExternal)
-                    triangle.FillTriangle(g, Color.Red);
+                    triangle.FillTriangle(g, externalColor);
                 else
-                    triangle.DrawTriangle(g, Color.Black);
+                    triangle.FillTriangle(g, internalColor);
             }
             else
                 DrawTriangles();
@@ -140,7 +144,9 @@ namespace TheGrid
             {
                 triange.DrawTriangle(g, Color.Black);
                 if (triange.IsExternal)
-                    triange.FillTriangle(g, Color.Red);
+                    triange.FillTriangle(g, externalColor);
+                else
+                    triange.FillTriangle(g, internalColor);
             }
             pictureBox1.Image = bitmap;
         }
@@ -192,6 +198,27 @@ namespace TheGrid
             {
                 bitmap.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
+        }
+
+        private void buttonChangeExternalColor_Click(object sender, EventArgs e)
+        {
+            ChangeColor(ref externalColor);
+            DrawTriangles();
+        }
+
+        private void buttonChangeInternalColor_Click(object sender, EventArgs e)
+        {
+            ChangeColor(ref internalColor);
+            DrawTriangles();
+        }
+        void ChangeColor(ref Color color)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            MyDialog.AllowFullOpen = false;
+            MyDialog.ShowHelp = true;
+
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+                color = MyDialog.Color;
         }
     }
 }
