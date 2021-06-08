@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheGrid
 {
-    class Line
+    public class Line
     {
         public Point[] points { get; private set; }
         public double Lenght { get; private set; }

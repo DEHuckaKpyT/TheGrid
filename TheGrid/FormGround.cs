@@ -21,6 +21,7 @@ namespace TheGrid
         bool activeDrawingPoints = false;
         Color internalColor = Color.Blue;
         Color externalColor = Color.Red;
+        FormStatistics formStatistics;
         public FormGround()
         {
             InitializeComponent();
@@ -39,9 +40,10 @@ namespace TheGrid
         private void FormGround_Load(object sender, EventArgs e)
         {
             points = new List<Point>();
-            bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            bitmap = new Bitmap(pictureBoxFigure.Width, pictureBoxFigure.Height);
             g = Graphics.FromImage(bitmap);
-            pictureBox1.Image = bitmap;
+            pictureBoxFigure.Image = bitmap;
+            formStatistics = new FormStatistics(points, lines, triangles);
         }
 
         void CreateStartTriangles()
@@ -71,14 +73,14 @@ namespace TheGrid
             internalLine.IsExternal = true;
         }
 
-        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        private void pictureBoxFigure_MouseClick(object sender, MouseEventArgs e)
         {
             if (activeDrawingPoints)
             {
                 points.Add(new Point(e.X, e.Y));
                 g.FillEllipse(new SolidBrush(Color.Black), e.X - 3, e.Y - 3, 6, 6);
             }
-            pictureBox1.Image = bitmap;
+            pictureBoxFigure.Image = bitmap;
         }
 
         private void buttonDevideTriangles_Click(object sender, EventArgs e)
@@ -95,16 +97,17 @@ namespace TheGrid
 
             triangles = new List<Triangle>(newTriangles);
 
-            g.Clear(Color.White);
-            foreach (Triangle triange in triangles)
-            {
-                triange.DrawTriangle(g, Color.Black);
-                if (triange.IsExternal)
-                    triange.FillTriangle(g, externalColor);
-                else
-                    triange.FillTriangle(g, internalColor);
-            }
-            pictureBox1.Image = bitmap;
+            DrawTriangles();
+            //g.Clear(Color.White);
+            //foreach (Triangle triange in triangles)
+            //{
+            //    triange.DrawTriangle(g, Color.Black);
+            //    if (triange.IsExternal)
+            //        triange.FillTriangle(g, externalColor);
+            //    else
+            //        triange.FillTriangle(g, internalColor);
+            //}
+            pictureBoxFigure.Image = bitmap;
         }
 
         private void buttonbuttonShowConcreteTriangle_Click(object sender, EventArgs e)
@@ -121,7 +124,7 @@ namespace TheGrid
             }
             else
                 DrawTriangles();
-            pictureBox1.Image = bitmap;
+            pictureBoxFigure.Image = bitmap;
         }
 
         private void buttonFigureFromFile_Click(object sender, EventArgs e)
@@ -148,7 +151,8 @@ namespace TheGrid
                 else
                     triange.FillTriangle(g, internalColor);
             }
-            pictureBox1.Image = bitmap;
+            pictureBoxFigure.Image = bitmap;
+            formStatistics.UpdateLabels();
         }
 
         private void buttonDrawTrianleByPoints_Click(object sender, EventArgs e)
@@ -169,8 +173,9 @@ namespace TheGrid
                 points.Clear();
                 activeDrawingPoints = true;
             }
-            pictureBox1.Image = bitmap;
+            pictureBoxFigure.Image = bitmap;
         }
+
         void EnabledControls(bool enabled)
         {
             buttonFigureFromFile.Enabled = enabled;
@@ -211,6 +216,7 @@ namespace TheGrid
             ChangeColor(ref internalColor);
             DrawTriangles();
         }
+
         void ChangeColor(ref Color color)
         {
             ColorDialog MyDialog = new ColorDialog();
@@ -219,6 +225,11 @@ namespace TheGrid
 
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 color = MyDialog.Color;
+        }
+
+        private void buttonOpenFormStatistics_Click(object sender, EventArgs e)
+        {
+            formStatistics.Show();
         }
     }
 }

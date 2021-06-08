@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheGrid
 {
-    class Triangle
+    public class Triangle
     {
         public Line[] lines { get; private set; }
         Pen p = new Pen(Color.Black, 2);
@@ -63,10 +63,10 @@ namespace TheGrid
 
             newTriangles.Add(newTriangle1);
             newTriangles.Add(newTriangle2);
-            allLines.Remove(lineForCut);
+            //allLines.Remove(lineForCut);
             allLines.Add(middleNewLine);
-            allLines.Add(newCutLine1);
-            allLines.Add(newCutLine2);
+            //allLines.Add(newCutLine1);
+            //allLines.Add(newCutLine2);
             allPoints.Add(middleNewPoint);
 
             return this;

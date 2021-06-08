@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFigure = new System.Windows.Forms.PictureBox();
             this.buttonDevideTriangles = new System.Windows.Forms.Button();
             this.textBoxNumber = new System.Windows.Forms.TextBox();
             this.buttonShowConcreteTriangle = new System.Windows.Forms.Button();
@@ -38,25 +38,26 @@
             this.buttonSavePicture = new System.Windows.Forms.Button();
             this.buttonChangeExternalColor = new System.Windows.Forms.Button();
             this.buttonChangeInternalColor = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.buttonOpenFormStatistics = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFigure)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxFigure
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(-3, -1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1100, 714);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            this.pictureBoxFigure.BackColor = System.Drawing.Color.White;
+            this.pictureBoxFigure.Location = new System.Drawing.Point(-3, -1);
+            this.pictureBoxFigure.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxFigure.Name = "pictureBoxFigure";
+            this.pictureBoxFigure.Size = new System.Drawing.Size(1100, 714);
+            this.pictureBoxFigure.TabIndex = 1;
+            this.pictureBoxFigure.TabStop = false;
+            this.pictureBoxFigure.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFigure_MouseClick);
             // 
             // buttonDevideTriangles
             // 
             this.buttonDevideTriangles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonDevideTriangles.Location = new System.Drawing.Point(1105, 233);
-            this.buttonDevideTriangles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDevideTriangles.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDevideTriangles.Name = "buttonDevideTriangles";
             this.buttonDevideTriangles.Size = new System.Drawing.Size(240, 73);
             this.buttonDevideTriangles.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             this.textBoxNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxNumber.Location = new System.Drawing.Point(1420, 94);
-            this.textBoxNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNumber.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNumber.Name = "textBoxNumber";
             this.textBoxNumber.Size = new System.Drawing.Size(83, 34);
             this.textBoxNumber.TabIndex = 3;
@@ -78,7 +79,7 @@
             // 
             this.buttonShowConcreteTriangle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonShowConcreteTriangle.Location = new System.Drawing.Point(1105, 80);
-            this.buttonShowConcreteTriangle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonShowConcreteTriangle.Margin = new System.Windows.Forms.Padding(4);
             this.buttonShowConcreteTriangle.Name = "buttonShowConcreteTriangle";
             this.buttonShowConcreteTriangle.Size = new System.Drawing.Size(307, 69);
             this.buttonShowConcreteTriangle.TabIndex = 4;
@@ -90,7 +91,7 @@
             // 
             this.buttonFigureFromFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonFigureFromFile.Location = new System.Drawing.Point(1105, 15);
-            this.buttonFigureFromFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonFigureFromFile.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFigureFromFile.Name = "buttonFigureFromFile";
             this.buttonFigureFromFile.Size = new System.Drawing.Size(307, 58);
             this.buttonFigureFromFile.TabIndex = 5;
@@ -102,7 +103,7 @@
             // 
             this.buttonDrawTrianleByPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonDrawTrianleByPoints.Location = new System.Drawing.Point(1105, 156);
-            this.buttonDrawTrianleByPoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDrawTrianleByPoints.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDrawTrianleByPoints.Name = "buttonDrawTrianleByPoints";
             this.buttonDrawTrianleByPoints.Size = new System.Drawing.Size(240, 69);
             this.buttonDrawTrianleByPoints.TabIndex = 6;
@@ -114,7 +115,7 @@
             // 
             this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonRefresh.Location = new System.Drawing.Point(1521, 15);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(43, 267);
             this.buttonRefresh.TabIndex = 7;
@@ -126,7 +127,7 @@
             // 
             this.buttonSavePicture.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSavePicture.Location = new System.Drawing.Point(1105, 313);
-            this.buttonSavePicture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSavePicture.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSavePicture.Name = "buttonSavePicture";
             this.buttonSavePicture.Size = new System.Drawing.Size(240, 71);
             this.buttonSavePicture.TabIndex = 8;
@@ -158,11 +159,24 @@
             this.buttonChangeInternalColor.UseVisualStyleBackColor = true;
             this.buttonChangeInternalColor.Click += new System.EventHandler(this.buttonChangeInternalColor_Click);
             // 
+            // buttonOpenFormStatistics
+            // 
+            this.buttonOpenFormStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonOpenFormStatistics.Location = new System.Drawing.Point(1105, 471);
+            this.buttonOpenFormStatistics.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonOpenFormStatistics.Name = "buttonOpenFormStatistics";
+            this.buttonOpenFormStatistics.Size = new System.Drawing.Size(240, 71);
+            this.buttonOpenFormStatistics.TabIndex = 11;
+            this.buttonOpenFormStatistics.Text = "Открыть форму статистики";
+            this.buttonOpenFormStatistics.UseVisualStyleBackColor = true;
+            this.buttonOpenFormStatistics.Click += new System.EventHandler(this.buttonOpenFormStatistics_Click);
+            // 
             // FormGround
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1580, 713);
+            this.Controls.Add(this.buttonOpenFormStatistics);
             this.Controls.Add(this.buttonChangeInternalColor);
             this.Controls.Add(this.buttonChangeExternalColor);
             this.Controls.Add(this.buttonSavePicture);
@@ -172,19 +186,19 @@
             this.Controls.Add(this.buttonShowConcreteTriangle);
             this.Controls.Add(this.textBoxNumber);
             this.Controls.Add(this.buttonDevideTriangles);
-            this.Controls.Add(this.pictureBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Controls.Add(this.pictureBoxFigure);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormGround";
             this.Text = "TheGrid";
             this.Load += new System.EventHandler(this.FormGround_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFigure)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxFigure;
         private System.Windows.Forms.Button buttonDevideTriangles;
         private System.Windows.Forms.TextBox textBoxNumber;
         private System.Windows.Forms.Button buttonShowConcreteTriangle;
@@ -194,6 +208,7 @@
         private System.Windows.Forms.Button buttonSavePicture;
         private System.Windows.Forms.Button buttonChangeExternalColor;
         private System.Windows.Forms.Button buttonChangeInternalColor;
+        private System.Windows.Forms.Button buttonOpenFormStatistics;
     }
 }
 
