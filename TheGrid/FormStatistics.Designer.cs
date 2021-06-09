@@ -99,14 +99,14 @@ namespace TheGrid
             this.listBoxAllPoints.ItemHeight = 22;
             this.listBoxAllPoints.Location = new System.Drawing.Point(12, 132);
             this.listBoxAllPoints.Name = "listBoxAllPoints";
-            this.listBoxAllPoints.Size = new System.Drawing.Size(395, 312);
+            this.listBoxAllPoints.Size = new System.Drawing.Size(383, 312);
             this.listBoxAllPoints.TabIndex = 5;
             // 
             // FormStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 580);
+            this.ClientSize = new System.Drawing.Size(407, 450);
             this.Controls.Add(this.listBoxAllPoints);
             this.Controls.Add(this.labelCountExternalTriangles);
             this.Controls.Add(this.labelCountInternalTriangles);
@@ -114,9 +114,11 @@ namespace TheGrid
             this.Controls.Add(this.labelCountLines);
             this.Controls.Add(this.labelCountPoints);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(423, 488);
             this.Name = "FormStatistics";
             this.Text = "FormStatistics";
             this.Load += new System.EventHandler(this.FormStatistics_Load);
+            this.Resize += new System.EventHandler(this.FormStatistics_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

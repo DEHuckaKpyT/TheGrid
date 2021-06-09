@@ -47,5 +47,11 @@ namespace TheGrid
                 i++;
             }
         }
+
+        private void FormStatistics_Resize(object sender, EventArgs e)
+        {
+            listBoxAllPoints.Width = this.ClientSize.Width - 24;
+            listBoxAllPoints.Height = ClientSize.Height - 132;
+        }
     }
 }
