@@ -34,15 +34,17 @@ namespace TheGrid
             this.labelCountTriangles = new System.Windows.Forms.Label();
             this.labelCountInternalTriangles = new System.Windows.Forms.Label();
             this.labelCountExternalTriangles = new System.Windows.Forms.Label();
+            this.listBoxAllPoints = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // labelCountPoints
             // 
             this.labelCountPoints.AutoSize = true;
             this.labelCountPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountPoints.Location = new System.Drawing.Point(162, 88);
+            this.labelCountPoints.Location = new System.Drawing.Point(11, 9);
+            this.labelCountPoints.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountPoints.Name = "labelCountPoints";
-            this.labelCountPoints.Size = new System.Drawing.Size(79, 29);
+            this.labelCountPoints.Size = new System.Drawing.Size(60, 24);
             this.labelCountPoints.TabIndex = 0;
             this.labelCountPoints.Text = "label1";
             // 
@@ -50,9 +52,10 @@ namespace TheGrid
             // 
             this.labelCountLines.AutoSize = true;
             this.labelCountLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountLines.Location = new System.Drawing.Point(162, 129);
+            this.labelCountLines.Location = new System.Drawing.Point(11, 33);
+            this.labelCountLines.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountLines.Name = "labelCountLines";
-            this.labelCountLines.Size = new System.Drawing.Size(79, 29);
+            this.labelCountLines.Size = new System.Drawing.Size(60, 24);
             this.labelCountLines.TabIndex = 1;
             this.labelCountLines.Text = "label2";
             // 
@@ -60,9 +63,10 @@ namespace TheGrid
             // 
             this.labelCountTriangles.AutoSize = true;
             this.labelCountTriangles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountTriangles.Location = new System.Drawing.Point(162, 172);
+            this.labelCountTriangles.Location = new System.Drawing.Point(11, 57);
+            this.labelCountTriangles.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountTriangles.Name = "labelCountTriangles";
-            this.labelCountTriangles.Size = new System.Drawing.Size(79, 29);
+            this.labelCountTriangles.Size = new System.Drawing.Size(60, 24);
             this.labelCountTriangles.TabIndex = 2;
             this.labelCountTriangles.Text = "label3";
             // 
@@ -70,9 +74,10 @@ namespace TheGrid
             // 
             this.labelCountInternalTriangles.AutoSize = true;
             this.labelCountInternalTriangles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountInternalTriangles.Location = new System.Drawing.Point(162, 226);
+            this.labelCountInternalTriangles.Location = new System.Drawing.Point(11, 81);
+            this.labelCountInternalTriangles.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountInternalTriangles.Name = "labelCountInternalTriangles";
-            this.labelCountInternalTriangles.Size = new System.Drawing.Size(79, 29);
+            this.labelCountInternalTriangles.Size = new System.Drawing.Size(60, 24);
             this.labelCountInternalTriangles.TabIndex = 3;
             this.labelCountInternalTriangles.Text = "label4";
             // 
@@ -80,22 +85,35 @@ namespace TheGrid
             // 
             this.labelCountExternalTriangles.AutoSize = true;
             this.labelCountExternalTriangles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountExternalTriangles.Location = new System.Drawing.Point(162, 271);
+            this.labelCountExternalTriangles.Location = new System.Drawing.Point(11, 105);
+            this.labelCountExternalTriangles.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountExternalTriangles.Name = "labelCountExternalTriangles";
-            this.labelCountExternalTriangles.Size = new System.Drawing.Size(79, 29);
+            this.labelCountExternalTriangles.Size = new System.Drawing.Size(60, 24);
             this.labelCountExternalTriangles.TabIndex = 4;
             this.labelCountExternalTriangles.Text = "label5";
             // 
+            // listBoxAllPoints
+            // 
+            this.listBoxAllPoints.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBoxAllPoints.FormattingEnabled = true;
+            this.listBoxAllPoints.ItemHeight = 22;
+            this.listBoxAllPoints.Location = new System.Drawing.Point(12, 132);
+            this.listBoxAllPoints.Name = "listBoxAllPoints";
+            this.listBoxAllPoints.Size = new System.Drawing.Size(395, 312);
+            this.listBoxAllPoints.TabIndex = 5;
+            // 
             // FormStatistics
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 523);
+            this.ClientSize = new System.Drawing.Size(817, 580);
+            this.Controls.Add(this.listBoxAllPoints);
             this.Controls.Add(this.labelCountExternalTriangles);
             this.Controls.Add(this.labelCountInternalTriangles);
             this.Controls.Add(this.labelCountTriangles);
             this.Controls.Add(this.labelCountLines);
             this.Controls.Add(this.labelCountPoints);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormStatistics";
             this.Text = "FormStatistics";
             this.Load += new System.EventHandler(this.FormStatistics_Load);
@@ -111,5 +129,6 @@ namespace TheGrid
         private System.Windows.Forms.Label labelCountTriangles;
         private System.Windows.Forms.Label labelCountInternalTriangles;
         private System.Windows.Forms.Label labelCountExternalTriangles;
+        private System.Windows.Forms.ListBox listBoxAllPoints;
     }
 }

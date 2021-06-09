@@ -63,10 +63,7 @@ namespace TheGrid
 
             newTriangles.Add(newTriangle1);
             newTriangles.Add(newTriangle2);
-            //allLines.Remove(lineForCut);
             allLines.Add(middleNewLine);
-            //allLines.Add(newCutLine1);
-            //allLines.Add(newCutLine2);
             if (!allPoints.Contains(middleNewPoint))
                 allPoints.Add(middleNewPoint);
 

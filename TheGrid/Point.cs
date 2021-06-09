@@ -21,5 +21,9 @@ namespace TheGrid
             Point point = obj as Point;
             return (X == point.X && Y == point.Y);
         }
+        public override string ToString()
+        {
+            return $"X = {X}, Y = {Y}";
+        }
     }
 }

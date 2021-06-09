@@ -29,16 +29,23 @@ namespace TheGrid
 
         private void FormStatistics_Load(object sender, EventArgs e)
         {
-            UpdateLabels();
+            UpdateOutput();
         }
 
-        public void UpdateLabels()
+        public void UpdateOutput()
         {
             labelCountPoints.Text = "Количество точек = " + points.Count;
             labelCountLines.Text = "Количество линий = " + lines.Count;
             labelCountTriangles.Text = "Количество треугольников = " + triangles.Count;
             labelCountInternalTriangles.Text = "Количество внутр треугольников = " + triangles.Count(x => !x.IsExternal);
             labelCountExternalTriangles.Text = "Количество внеш треугольников = " + triangles.Count(x => x.IsExternal);
+            listBoxAllPoints.Items.Clear();
+            int i = 0;
+            foreach (Point point in points)
+            {
+                listBoxAllPoints.Items.Add($"{i, 3}.X = {point.X}, Y = {point.Y}");
+                i++;
+            }
         }
     }
 }

@@ -50,10 +50,13 @@ namespace TheGrid
 
         void CreateStartTriangles()
         {
-            if (points.Count < 3)
-                return;
             lines.Clear();
             triangles.Clear();
+            if (points.Count < 3)
+            {
+                points.Clear();
+                return;
+            }
             Line previousLine = new Line(points[0], points[1], true);
             lines.Add(previousLine);
             Point firstPoint = points[0];
@@ -151,7 +154,7 @@ namespace TheGrid
                     triange.FillTriangle(g, internalColor);
             }
             pictureBoxFigure.Image = bitmap;
-            formStatistics.UpdateLabels();
+            formStatistics.UpdateOutput();
         }
 
         private void buttonDrawTrianleByPoints_Click(object sender, EventArgs e)
