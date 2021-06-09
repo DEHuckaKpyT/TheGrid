@@ -67,7 +67,8 @@ namespace TheGrid
             allLines.Add(middleNewLine);
             //allLines.Add(newCutLine1);
             //allLines.Add(newCutLine2);
-            allPoints.Add(middleNewPoint);
+            if (!allPoints.Contains(middleNewPoint))
+                allPoints.Add(middleNewPoint);
 
             return this;
         }

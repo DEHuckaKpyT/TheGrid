@@ -40,6 +40,8 @@ namespace TheGrid
         private void FormGround_Load(object sender, EventArgs e)
         {
             points = new List<Point>();
+            lines = new List<Line>();
+            triangles = new List<Triangle>();
             bitmap = new Bitmap(pictureBoxFigure.Width, pictureBoxFigure.Height);
             g = Graphics.FromImage(bitmap);
             pictureBoxFigure.Image = bitmap;
@@ -50,8 +52,8 @@ namespace TheGrid
         {
             if (points.Count < 3)
                 return;
-            lines = new List<Line>();
-            triangles = new List<Triangle>();
+            lines.Clear();
+            triangles.Clear();
             Line previousLine = new Line(points[0], points[1], true);
             lines.Add(previousLine);
             Point firstPoint = points[0];
@@ -94,19 +96,16 @@ namespace TheGrid
             {
                 forRemove.Add(triangle.DivideTriangle(newTriangles, lines, points));
             }
-
-            triangles = new List<Triangle>(newTriangles);
+            foreach(Triangle triangle in forRemove)
+            {
+                triangles.Remove(triangle);
+            }
+            forRemove.Clear();
+            triangles.Clear();
+            triangles.AddRange(newTriangles);
+            //triangles = new List<Triangle>(newTriangles);
 
             DrawTriangles();
-            //g.Clear(Color.White);
-            //foreach (Triangle triange in triangles)
-            //{
-            //    triange.DrawTriangle(g, Color.Black);
-            //    if (triange.IsExternal)
-            //        triange.FillTriangle(g, externalColor);
-            //    else
-            //        triange.FillTriangle(g, internalColor);
-            //}
             pictureBoxFigure.Image = bitmap;
         }
 
@@ -229,6 +228,8 @@ namespace TheGrid
 
         private void buttonOpenFormStatistics_Click(object sender, EventArgs e)
         {
+            if (formStatistics.IsDisposed)
+                formStatistics = new FormStatistics(points, lines, triangles);
             formStatistics.Show();
         }
     }

@@ -34,11 +34,11 @@ namespace TheGrid
 
         public void UpdateLabels()
         {
-            labelCountPoints.Text = points.Count.ToString();
-            labelCountLines.Text = lines.Count.ToString();
-            labelCountTriangles.Text = triangles.Count.ToString();
-            labelCountInternalTriangles.Text = triangles.Count(triangle => !triangle.IsExternal).ToString();
-            labelCountExternalTriangles.Text = triangles.Count(triangle => triangle.IsExternal).ToString();
+            labelCountPoints.Text = "Количество точек = " + points.Count;
+            labelCountLines.Text = "Количество линий = " + lines.Count;
+            labelCountTriangles.Text = "Количество треугольников = " + triangles.Count;
+            labelCountInternalTriangles.Text = "Количество внутр треугольников = " + triangles.Count(x => !x.IsExternal);
+            labelCountExternalTriangles.Text = "Количество внеш треугольников = " + triangles.Count(x => x.IsExternal);
         }
     }
 }
