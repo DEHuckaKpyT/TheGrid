@@ -176,6 +176,9 @@
             this.Controls.Add(this.textBoxNumber);
             this.Controls.Add(this.buttonDevideTriangles);
             this.Controls.Add(this.pictureBoxFigure);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1201, 617);
+            this.MinimumSize = new System.Drawing.Size(1201, 617);
             this.Name = "FormGround";
             this.Text = "TheGrid";
             this.Load += new System.EventHandler(this.FormGround_Load);
