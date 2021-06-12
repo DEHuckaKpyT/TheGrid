@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -39,6 +40,7 @@ namespace TheGrid
 
         private void FormGround_Load(object sender, EventArgs e)
         {
+            LoadSave();
             points = new List<Point>();
             lines = new List<Line>();
             triangles = new List<Triangle>();
@@ -106,7 +108,6 @@ namespace TheGrid
             forRemove.Clear();
             triangles.Clear();
             triangles.AddRange(newTriangles);
-            //triangles = new List<Triangle>(newTriangles);
 
             DrawTriangles();
             pictureBoxFigure.Image = bitmap;
@@ -234,6 +235,27 @@ namespace TheGrid
             if (formStatistics.IsDisposed)
                 formStatistics = new FormStatistics(points, lines, triangles);
             formStatistics.Show();
+        }
+
+        private void FormGround_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fileStream = new FileStream("Save.txt", FileMode.OpenOrCreate))
+            {
+                object[] colors = new object[2] { internalColor, externalColor };
+                formatter.Serialize(fileStream, colors);
+            }
+        }
+
+        void LoadSave()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fileStream = new FileStream("Save.txt", FileMode.OpenOrCreate))
+            {
+                object[] colors = (object[])formatter.Deserialize(fileStream);
+                internalColor = (Color)colors[0];
+                externalColor = (Color)colors[1];
+            }
         }
     }
 }

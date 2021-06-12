@@ -181,6 +181,7 @@
             this.MinimumSize = new System.Drawing.Size(1201, 617);
             this.Name = "FormGround";
             this.Text = "TheGrid";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGround_FormClosing);
             this.Load += new System.EventHandler(this.FormGround_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFigure)).EndInit();
             this.ResumeLayout(false);
