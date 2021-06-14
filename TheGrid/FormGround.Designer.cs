@@ -39,6 +39,7 @@
             this.buttonChangeExternalColor = new System.Windows.Forms.Button();
             this.buttonChangeInternalColor = new System.Windows.Forms.Button();
             this.buttonOpenFormStatistics = new System.Windows.Forms.Button();
+            this.buttonSaveTXT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFigure)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,11 +161,23 @@
             this.buttonOpenFormStatistics.UseVisualStyleBackColor = true;
             this.buttonOpenFormStatistics.Click += new System.EventHandler(this.buttonOpenFormStatistics_Click);
             // 
+            // buttonSaveTXT
+            // 
+            this.buttonSaveTXT.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSaveTXT.Location = new System.Drawing.Point(1015, 254);
+            this.buttonSaveTXT.Name = "buttonSaveTXT";
+            this.buttonSaveTXT.Size = new System.Drawing.Size(158, 58);
+            this.buttonSaveTXT.TabIndex = 12;
+            this.buttonSaveTXT.Text = "Сохранить txt";
+            this.buttonSaveTXT.UseVisualStyleBackColor = true;
+            this.buttonSaveTXT.Click += new System.EventHandler(this.buttonSaveTXT_Click);
+            // 
             // FormGround
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1185, 579);
+            this.Controls.Add(this.buttonSaveTXT);
             this.Controls.Add(this.buttonOpenFormStatistics);
             this.Controls.Add(this.buttonChangeInternalColor);
             this.Controls.Add(this.buttonChangeExternalColor);
@@ -201,6 +214,7 @@
         private System.Windows.Forms.Button buttonChangeExternalColor;
         private System.Windows.Forms.Button buttonChangeInternalColor;
         private System.Windows.Forms.Button buttonOpenFormStatistics;
+        private System.Windows.Forms.Button buttonSaveTXT;
     }
 }
 

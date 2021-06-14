@@ -42,10 +42,10 @@ namespace TheGrid
 
         }
 
-        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int countTriangles)//деление треугольника на два
+        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int countTriangles, int numbNewPoint)//деление треугольника на два
         {
             Line lineForCut = lines[2];
-            Point middleNewPoint = new Point(allPoints.Count, (lineForCut.points[0].X + lineForCut.points[1].X) / 2, (lineForCut.points[0].Y + lineForCut.points[1].Y) / 2);
+            Point middleNewPoint = new Point(numbNewPoint, (lineForCut.points[0].X + lineForCut.points[1].X) / 2, (lineForCut.points[0].Y + lineForCut.points[1].Y) / 2);
 
             Line newCutLine1 = new Line(lineForCut.points[0], middleNewPoint, lines[2].IsExternal);
             Line newCutLine2 = new Line(middleNewPoint, lineForCut.points[1], lines[2].IsExternal);
@@ -76,6 +76,9 @@ namespace TheGrid
             allLines.Add(middleNewLine);
             if (!allPoints.Contains(middleNewPoint))
                 allPoints.Add(middleNewPoint);
+            else
+                foreach(Point point in allPoints)
+                    if (middleNewPoint.Equals(point)) middleNewPoint.Number = point.Number;
 
             return this;
         }

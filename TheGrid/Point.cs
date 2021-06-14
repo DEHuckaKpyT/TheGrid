@@ -9,7 +9,7 @@ namespace TheGrid
 {
     public class Point
     {
-        public int Number { get; private set; }
+        public int Number { get; set; }
         public int X { get; private set; }
         public int Y { get; private set; }
 

@@ -36,21 +36,35 @@ namespace TheGrid
                 while (!reader.EndOfStream)
                 {
                     string[] pointOrPoints = reader.ReadLine().Split(' ');
-                    if (pointOrPoints.Length == 2)
-                        points.Add(new Point(points.Count, int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1])));
+                    if (pointOrPoints.Length == 3)
+                        points.Add(new Point(int.Parse(pointOrPoints[0].Substring(1, pointOrPoints[0].LastIndexOf(')') - 1)), 
+                            int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2])));
                     else
-                        stringsTriangles.Add(new int[3] { int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]) });
+                        stringsTriangles.Add(new int[3] { int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]), int.Parse(pointOrPoints[3]) });
                 }
 
             foreach (int[] numbers in stringsTriangles)
             {
-                Point p1 = points[numbers[0]];
-                Point p2 = points[numbers[1]];
-                Point p3 = points[numbers[2]];
+                Point p1 = points.Where(x => x.Number == numbers[0]).First();
+                Point p2 = points.Where(x => x.Number == numbers[1]).First();
+                Point p3 = points.Where(x => x.Number == numbers[2]).First();
+                Line l1 = new Line(p1, p2, true);
+                Line l2 = new Line(p2, p3, true);
+                Line l3 = new Line(p3, p1, true);
 
-                triangles.Add(new Triangle(triangles.Count,
-                    new Line(p1, p2, true), new Line(p2, p3, true), new Line(p3, p1, true),
+                foreach (Line line in lines)
+                {
+                    if (line.Equals(l1)) l1 = line;
+                    if (line.Equals(l2)) l2 = line;
+                    if (line.Equals(l3)) l3 = line;
+                }
+
+                triangles.Add(new Triangle(triangles.Count, l1, l2, l3,
                     new Point[] { p1, p2, p3 }));
+
+                if (!lines.Contains(l1)) lines.Add(l1);
+                if (!lines.Contains(l2)) lines.Add(l2);
+                if (!lines.Contains(l3)) lines.Add(l3);
             }
 
             foreach (Triangle triangle1 in triangles)
@@ -58,11 +72,8 @@ namespace TheGrid
                     if (triangle1 != triangle2)
                         foreach (Line line1 in triangle1.lines)
                             foreach (Line line2 in triangle2.lines)
-                                if (line1.Equals(line2))
-                                {
+                                if (line1 == line2)
                                     line1.IsExternal = false;
-                                    line2.IsExternal = false;
-                                }
         }
 
         private void FormGround_Load(object sender, EventArgs e)
@@ -113,7 +124,7 @@ namespace TheGrid
         {
             if (activeDrawingPoints)
             {
-                points.Add(new Point(points.Count, e.X, e.Y));
+                points.Add(new Point(GetNextPointNumber(), e.X, e.Y));
                 g.FillEllipse(new SolidBrush(Color.Black), e.X - 3, e.Y - 3, 6, 6);
             }
             pictureBoxFigure.Image = bitmap;
@@ -129,7 +140,7 @@ namespace TheGrid
             foreach (Triangle triangle in triangles)
             {
                 forRemove.Add(triangle.DivideTriangle(newTriangles, lines, points,
-                    (triangles.Count + forRemove.Count)));
+                    (triangles.Count + forRemove.Count), GetNextPointNumber()));
             }
             foreach(Triangle triangle in forRemove)
             {
@@ -167,6 +178,8 @@ namespace TheGrid
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             points.Clear();
+            lines.Clear();
+            triangles.Clear();
             ReadFigures(openFileDialog.FileName);
             //CreateStartTriangles();
             DrawTriangles();
@@ -237,9 +250,7 @@ namespace TheGrid
             savedialog.Filter = "Image Files(*.JPG)|*.JPG|Image Files(*.BMP)|*.BMP|Image Files(*.GIF)|*.GIF|Image Files(*.PNG)|*.PNG|All files (*.*)|*.*";
             savedialog.ShowHelp = true;
             if (savedialog.ShowDialog() == DialogResult.OK) //если в диалоговом окне нажата кнопка "ОК"
-            {
                 bitmap.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
         }
 
         private void buttonChangeExternalColor_Click(object sender, EventArgs e)
@@ -285,14 +296,42 @@ namespace TheGrid
         {
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fileStream = new FileStream("Save.txt", FileMode.OpenOrCreate))
-            {
                 if (fileStream.Length != 0)
                 {
                     object[] colors = (object[])formatter.Deserialize(fileStream);
                     internalColor = (Color)colors[0];
                     externalColor = (Color)colors[1];
                 }
+        }
+
+        private void buttonSaveTXT_Click(object sender, EventArgs e)
+        {
+            using(StreamWriter writer = new StreamWriter("Triangles.txt", false, Encoding.UTF8))
+            {
+                List<Point> pointsForPrint = new List<Point>();
+                foreach (Triangle triangle in triangles)
+                {
+                    if (!triangle.IsExternal)
+                    {
+                        writer.WriteLine($"[{triangle.Number}] {triangle.points[0].Number} {triangle.points[1].Number} {triangle.points[2].Number}");
+                        if (!pointsForPrint.Contains(triangle.points[0])) pointsForPrint.Add(triangle.points[0]);
+                        if (!pointsForPrint.Contains(triangle.points[1])) pointsForPrint.Add(triangle.points[1]);
+                        if (!pointsForPrint.Contains(triangle.points[2])) pointsForPrint.Add(triangle.points[2]);
+                    }
+                }
+                foreach (Point point in pointsForPrint.OrderBy(x => x.Number))
+                    writer.WriteLine($"({point.Number}) {point.X} {point.Y}");
             }
+        }
+        int GetNextPointNumber()
+        {
+            int freeNumber = 0;
+            foreach(Point point in points.OrderBy(x => x.Number))
+            {
+                if (point.Number != freeNumber) return freeNumber;
+                freeNumber++;
+            }
+            return freeNumber;
         }
     }
 }
