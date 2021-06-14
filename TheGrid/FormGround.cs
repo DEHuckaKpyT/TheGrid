@@ -252,9 +252,12 @@ namespace TheGrid
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fileStream = new FileStream("Save.txt", FileMode.OpenOrCreate))
             {
-                object[] colors = (object[])formatter.Deserialize(fileStream);
-                internalColor = (Color)colors[0];
-                externalColor = (Color)colors[1];
+                if (fileStream.Length != 0)
+                {
+                    object[] colors = (object[])formatter.Deserialize(fileStream);
+                    internalColor = (Color)colors[0];
+                    externalColor = (Color)colors[1];
+                }
             }
         }
     }
