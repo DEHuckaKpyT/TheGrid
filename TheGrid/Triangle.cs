@@ -39,6 +39,7 @@ namespace TheGrid
         public void FillTriangle(Graphics g, Color color)
         {
             g.FillPolygon(new SolidBrush(color), GetPointsForFill());
+
         }
 
         public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int countTriangles)//деление треугольника на два

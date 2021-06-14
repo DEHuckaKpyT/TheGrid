@@ -21,7 +21,7 @@ namespace TheGrid
         }
         public void DrawPointNumber(Graphics g)
         {
-            g.DrawString($"({Number}){X}; {Y}", new Font("Times New Roman", 14), new SolidBrush(Color.Black), X, Y);
+            g.DrawString($"({Number}){X}; {Y}", new Font("Times New Roman", 12, FontStyle.Bold), new SolidBrush(Color.Black), X, Y);
         }
         public override bool Equals(object obj)
         {

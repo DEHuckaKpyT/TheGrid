@@ -30,9 +30,6 @@ namespace TheGrid
 
         void ReadFigures(string path)
         {
-            //List<Point> localPoints = new List<Point>();
-            //List<Line> localLines = new List<Line>();
-            //List<Triangle> localTriangles = new List<Triangle>();
             List<int[]> stringsTriangles = new List<int[]>();
 
             using (StreamReader reader = new StreamReader(path))
@@ -42,24 +39,30 @@ namespace TheGrid
                     if (pointOrPoints.Length == 2)
                         points.Add(new Point(points.Count, int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1])));
                     else
-                    {
                         stringsTriangles.Add(new int[3] { int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]) });
-                    }
                 }
-            foreach(int[] numbers in stringsTriangles)
+
+            foreach (int[] numbers in stringsTriangles)
             {
                 Point p1 = points[numbers[0]];
                 Point p2 = points[numbers[1]];
                 Point p3 = points[numbers[2]];
 
                 triangles.Add(new Triangle(triangles.Count,
-                    new Line(p1, p2), new Line(p2, p3), new Line(p3, p1),
+                    new Line(p1, p2, true), new Line(p2, p3, true), new Line(p3, p1, true),
                     new Point[] { p1, p2, p3 }));
-
-
             }
 
-
+            foreach (Triangle triangle1 in triangles)
+                foreach (Triangle triangle2 in triangles)
+                    if (triangle1 != triangle2)
+                        foreach (Line line1 in triangle1.lines)
+                            foreach (Line line2 in triangle2.lines)
+                                if (line1.Equals(line2))
+                                {
+                                    line1.IsExternal = false;
+                                    line2.IsExternal = false;
+                                }
         }
 
         private void FormGround_Load(object sender, EventArgs e)
@@ -165,7 +168,7 @@ namespace TheGrid
                 return;
             points.Clear();
             ReadFigures(openFileDialog.FileName);
-            CreateStartTriangles();
+            //CreateStartTriangles();
             DrawTriangles();
         }
 
