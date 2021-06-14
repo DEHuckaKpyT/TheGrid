@@ -40,7 +40,8 @@ namespace TheGrid
                         points.Add(new Point(int.Parse(pointOrPoints[0].Substring(1, pointOrPoints[0].LastIndexOf(')') - 1)), 
                             int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2])));
                     else
-                        stringsTriangles.Add(new int[3] { int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]), int.Parse(pointOrPoints[3]) });
+                        stringsTriangles.Add(new int[4] { int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]), int.Parse(pointOrPoints[3]),
+                        int.Parse(pointOrPoints[0].Substring(1, pointOrPoints[0].LastIndexOf(']') - 1))});
                 }
 
             foreach (int[] numbers in stringsTriangles)
@@ -59,7 +60,7 @@ namespace TheGrid
                     if (line.Equals(l3)) l3 = line;
                 }
 
-                triangles.Add(new Triangle(triangles.Count, l1, l2, l3,
+                triangles.Add(new Triangle(numbers[3], l1, l2, l3,
                     new Point[] { p1, p2, p3 }));
 
                 if (!lines.Contains(l1)) lines.Add(l1);
@@ -70,10 +71,13 @@ namespace TheGrid
             foreach (Triangle triangle1 in triangles)
                 foreach (Triangle triangle2 in triangles)
                     if (triangle1 != triangle2)
+                    {
                         foreach (Line line1 in triangle1.lines)
                             foreach (Line line2 in triangle2.lines)
                                 if (line1 == line2)
                                     line1.IsExternal = false;
+                        if (triangle1.lines.Count(x => !x.IsExternal) == 3) triangle1.IsExternal = false;
+                    }
         }
 
         private void FormGround_Load(object sender, EventArgs e)
@@ -109,7 +113,7 @@ namespace TheGrid
                 internalLine = new Line(currentPoint, firstPoint);
                 lines.Add(externalLine);
                 lines.Add(internalLine);
-                Triangle currentTriangle = new Triangle(triangles.Count,
+                Triangle currentTriangle = new Triangle(GetNextTriangleNumber(),
                     previousLine, externalLine, internalLine,
                     new Point[] {firstPoint, previousPoint, currentPoint });
                 triangles.Add(currentTriangle);
@@ -140,7 +144,7 @@ namespace TheGrid
             foreach (Triangle triangle in triangles)
             {
                 forRemove.Add(triangle.DivideTriangle(newTriangles, lines, points,
-                    (triangles.Count + forRemove.Count), GetNextPointNumber()));
+                    (GetNextTriangleNumber( forRemove.Count)), GetNextPointNumber()));
             }
             foreach(Triangle triangle in forRemove)
             {
@@ -332,6 +336,22 @@ namespace TheGrid
                 freeNumber++;
             }
             return freeNumber;
+        }
+        int GetNextTriangleNumber(int additionalValue = 0)
+        {
+            int freeNumber = 0;
+            foreach (Triangle triangle in triangles.OrderBy(x => x.Number))
+            {
+                while(triangle.Number != freeNumber && additionalValue != 0)
+                {
+                    freeNumber++;
+                    additionalValue--;
+                }
+                if (triangle.Number != freeNumber && additionalValue == 0) return freeNumber;
+                freeNumber++;
+            }
+
+            return freeNumber + additionalValue;
         }
     }
 }

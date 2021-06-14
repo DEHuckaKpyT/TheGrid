@@ -12,7 +12,7 @@ namespace TheGrid
         public int Number { get; private set; }
         public Line[] lines { get; private set; }
         public Point[] points { get; private set; }
-        public bool IsExternal { get; private set; }
+        public bool IsExternal { get; set; }
 
         Pen p = new Pen(Color.Black, 2);
 
@@ -39,10 +39,11 @@ namespace TheGrid
         public void FillTriangle(Graphics g, Color color)
         {
             g.FillPolygon(new SolidBrush(color), GetPointsForFill());
-
+            g.DrawString($"[{Number}]", new Font("Times New Roman", 12, FontStyle.Bold), new SolidBrush(Color.Black),
+                (points[0].X + points[1].X + points[2].X) / 3, (points[0].Y + points[1].Y + points[2].Y) / 3);
         }
 
-        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int countTriangles, int numbNewPoint)//деление треугольника на два
+        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int numberNewTriangle, int numbNewPoint)//деление треугольника на два
         {
             Line lineForCut = lines[2];
             Point middleNewPoint = new Point(numbNewPoint, (lineForCut.points[0].X + lineForCut.points[1].X) / 2, (lineForCut.points[0].Y + lineForCut.points[1].Y) / 2);
@@ -60,14 +61,14 @@ namespace TheGrid
             {
                 newTriangle1 = new Triangle(Number, lines[0], newCutLine1, middleNewLine,
                     new Point[] { newCutLine1.points[0], newCutLine1.points[1], farPoint });
-                newTriangle2 = new Triangle(countTriangles, lines[1], newCutLine2, middleNewLine,
+                newTriangle2 = new Triangle(numberNewTriangle, lines[1], newCutLine2, middleNewLine,
                     new Point[] { newCutLine2.points[0], newCutLine2.points[1], farPoint });
             }
             else
             {
                 newTriangle1 = new Triangle(Number, lines[1], newCutLine1, middleNewLine,
                     new Point[] { newCutLine1.points[0], newCutLine1.points[1], farPoint });
-                newTriangle2 = new Triangle(countTriangles, lines[0], newCutLine2, middleNewLine,
+                newTriangle2 = new Triangle(numberNewTriangle, lines[0], newCutLine2, middleNewLine,
                     new Point[] { newCutLine2.points[0], newCutLine2.points[1], farPoint });
             }
 
