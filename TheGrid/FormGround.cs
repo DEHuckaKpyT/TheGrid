@@ -30,12 +30,36 @@ namespace TheGrid
 
         void ReadFigures(string path)
         {
+            //List<Point> localPoints = new List<Point>();
+            //List<Line> localLines = new List<Line>();
+            //List<Triangle> localTriangles = new List<Triangle>();
+            List<int[]> stringsTriangles = new List<int[]>();
+
             using (StreamReader reader = new StreamReader(path))
                 while (!reader.EndOfStream)
                 {
-                    string[] pairXY = reader.ReadLine().Split(' ');
-                    points.Add(new Point(int.Parse(pairXY[0]), int.Parse(pairXY[1])));
+                    string[] pointOrPoints = reader.ReadLine().Split(' ');
+                    if (pointOrPoints.Length == 2)
+                        points.Add(new Point(points.Count, int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1])));
+                    else
+                    {
+                        stringsTriangles.Add(new int[3] { int.Parse(pointOrPoints[0]), int.Parse(pointOrPoints[1]), int.Parse(pointOrPoints[2]) });
+                    }
                 }
+            foreach(int[] numbers in stringsTriangles)
+            {
+                Point p1 = points[numbers[0]];
+                Point p2 = points[numbers[1]];
+                Point p3 = points[numbers[2]];
+
+                triangles.Add(new Triangle(triangles.Count,
+                    new Line(p1, p2), new Line(p2, p3), new Line(p3, p1),
+                    new Point[] { p1, p2, p3 }));
+
+
+            }
+
+
         }
 
         private void FormGround_Load(object sender, EventArgs e)
@@ -71,7 +95,9 @@ namespace TheGrid
                 internalLine = new Line(currentPoint, firstPoint);
                 lines.Add(externalLine);
                 lines.Add(internalLine);
-                Triangle currentTriangle = new Triangle(previousLine, externalLine, internalLine);
+                Triangle currentTriangle = new Triangle(triangles.Count,
+                    previousLine, externalLine, internalLine,
+                    new Point[] {firstPoint, previousPoint, currentPoint });
                 triangles.Add(currentTriangle);
 
                 previousLine = internalLine;
@@ -84,7 +110,7 @@ namespace TheGrid
         {
             if (activeDrawingPoints)
             {
-                points.Add(new Point(e.X, e.Y));
+                points.Add(new Point(points.Count, e.X, e.Y));
                 g.FillEllipse(new SolidBrush(Color.Black), e.X - 3, e.Y - 3, 6, 6);
             }
             pictureBoxFigure.Image = bitmap;
@@ -99,7 +125,8 @@ namespace TheGrid
 
             foreach (Triangle triangle in triangles)
             {
-                forRemove.Add(triangle.DivideTriangle(newTriangles, lines, points));
+                forRemove.Add(triangle.DivideTriangle(newTriangles, lines, points,
+                    (triangles.Count + forRemove.Count)));
             }
             foreach(Triangle triangle in forRemove)
             {
@@ -153,6 +180,10 @@ namespace TheGrid
                     triange.FillTriangle(g, externalColor);
                 else
                     triange.FillTriangle(g, internalColor);
+            }
+            foreach(Point point in points)
+            {
+                point.DrawPointNumber(g);
             }
             pictureBoxFigure.Image = bitmap;
             formStatistics.UpdateOutput();

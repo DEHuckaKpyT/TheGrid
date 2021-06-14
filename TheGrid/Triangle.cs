@@ -9,12 +9,17 @@ namespace TheGrid
 {
     public class Triangle
     {
+        public int Number { get; private set; }
         public Line[] lines { get; private set; }
-        Pen p = new Pen(Color.Black, 2);
+        public Point[] points { get; private set; }
         public bool IsExternal { get; private set; }
 
-        public Triangle(Line l1, Line l2, Line l3)
+        Pen p = new Pen(Color.Black, 2);
+
+        public Triangle(int numb, Line l1, Line l2, Line l3, Point[] points)
         {
+            Number = numb;
+            this.points = points;
             lines = new Line[3];
             lines[0] = l1;
             lines[1] = l2;
@@ -36,13 +41,13 @@ namespace TheGrid
             g.FillPolygon(new SolidBrush(color), GetPointsForFill());
         }
 
-        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints)//деление треугольника на два
+        public Triangle DivideTriangle(List<Triangle> newTriangles, List<Line> allLines, List<Point> allPoints, int countTriangles)//деление треугольника на два
         {
             Line lineForCut = lines[2];
-            Point middleNewPoint = new Point((lineForCut.points[0].X + lineForCut.points[1].X) / 2, (lineForCut.points[0].Y + lineForCut.points[1].Y) / 2);
+            Point middleNewPoint = new Point(allPoints.Count, (lineForCut.points[0].X + lineForCut.points[1].X) / 2, (lineForCut.points[0].Y + lineForCut.points[1].Y) / 2);
 
-            Line newCutLine1 = new Line(lineForCut.points[0], new Point(middleNewPoint.X, middleNewPoint.Y), lines[2].IsExternal);
-            Line newCutLine2 = new Line(new Point(middleNewPoint.X, middleNewPoint.Y), lineForCut.points[1], lines[2].IsExternal);
+            Line newCutLine1 = new Line(lineForCut.points[0], middleNewPoint, lines[2].IsExternal);
+            Line newCutLine2 = new Line(middleNewPoint, lineForCut.points[1], lines[2].IsExternal);
 
             Point farPoint = lines[0].GetNotEqualsPoint(lines[2]);
 
@@ -52,13 +57,17 @@ namespace TheGrid
             Triangle newTriangle2;
             if (lines[0].ContainsGeneralPoint(newCutLine1))
             {
-                newTriangle1 = new Triangle(lines[0], newCutLine1, middleNewLine);
-                newTriangle2 = new Triangle(lines[1], newCutLine2, middleNewLine);
+                newTriangle1 = new Triangle(Number, lines[0], newCutLine1, middleNewLine,
+                    new Point[] { newCutLine1.points[0], newCutLine1.points[1], farPoint });
+                newTriangle2 = new Triangle(countTriangles, lines[1], newCutLine2, middleNewLine,
+                    new Point[] { newCutLine2.points[0], newCutLine2.points[1], farPoint });
             }
             else
             {
-                newTriangle1 = new Triangle(lines[1], newCutLine1, middleNewLine);
-                newTriangle2 = new Triangle(lines[0], newCutLine2, middleNewLine);
+                newTriangle1 = new Triangle(Number, lines[1], newCutLine1, middleNewLine,
+                    new Point[] { newCutLine1.points[0], newCutLine1.points[1], farPoint });
+                newTriangle2 = new Triangle(countTriangles, lines[0], newCutLine2, middleNewLine,
+                    new Point[] { newCutLine2.points[0], newCutLine2.points[1], farPoint });
             }
 
             newTriangles.Add(newTriangle1);
